@@ -1,0 +1,3 @@
+sudo -u postgres psql -c "CREATE DATABASE quizdb";
+sudo -u postgres psql -c "CREATE USER test_user WITH ENCRYPTED PASSWORD 'password';"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE quizdb TO test_user;"

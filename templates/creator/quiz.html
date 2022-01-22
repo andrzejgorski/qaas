@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div> <h2>{{quiz.name}}</h2>
+    <a href="{% url 'invite' quiz_number=quiz.number %}"> sent invites </a>
+</div>
+
+<div> <h4>Participants:</h4> </div>
+{% for p in participations %}
+<div> <a> {{ p.email }} Progress: {{ p.progress }} Score: {{ p.score }} </a>
+
+{% if not p.notified %}
+<form method="post" action="{% url 'notify' quiz_number=quiz.number participation_number=p.number %}">
+{% csrf_token %}
+<input type="submit" value="Notify about result">
+
+</form>
+{% else %}
+Already notified
+{% endif %}
+</div>
+{% endfor %}
+
+<div> <h4>Invited: </h4> <a>(not answered yet)</a></div>
+{% for email in invited %}
+<div> <a> {{ email }} </a> </div>
+{% endfor %}
+
+{% endblock %}

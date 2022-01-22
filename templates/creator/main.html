@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<center>
+<div>
+    <a href="{% url 'create_quiz' %}">Create Quiz</a>
+</div>
+<div>
+    <a href="{% url 'quizzes' %}">Quizzes</a>
+</div>
+
+<div>
+    <a href="{% url 'participant_view' %}">Participant View</a>
+</div>
+
+{% endblock %}
+
+
+

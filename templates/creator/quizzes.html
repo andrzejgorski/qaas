@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for quiz in quizzes %}
+<div> <h4>{{quiz.name}}</h4><a href="{% url 'quiz' quiz_number=quiz.number %}"> go to page </a> </div>
+{% endfor %}
+
+{% endblock %}

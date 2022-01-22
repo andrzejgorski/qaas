@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="post">
+    {% csrf_token %} {{ question_form.as_p }} <div>{{ answer_form.as_p }} </div>
+    <button><a href="/quiz_creator">Home</a></button> <input type="submit" value="AddQuestion" />
+</form>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<center>
+{% if invitations %}
+<h2>invitations: </h2>
+{% for inv in invitations %}
+<div>
+    {{inv.quiz.name}} <a href="{% url 'accept_invitation' invitation_url_id=inv.url_id %}"> accept invitation </a>
+</div>
+{% endfor %}
+{% endif %}
+
+<h2>my quizzes: </h2>
+{% if not quizzes %}
+Currently you're not invited to any quiz.
+{% else %}
+{% for quiz in quizzes %}
+{% if not quiz.started %}
+<div>
+    {{quiz.quiz.name}} <a href="{% url 'start_quiz' quiz_url_id=quiz.url_id %}"> Start </a>
+<div>
+{% elif not quiz.ended %}
+<div>
+    {{quiz.quiz.name}} Progress: {{quiz.progress}}% <a href="{% url 'quiz_question' quiz_url_id=quiz.url_id question_number=1 %}"> Continue </a>
+<div>
+{% else %}
+<div>
+    {{quiz.quiz.name}} Score: {{quiz.score}}
+<div>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+</center>
+{% endblock %}

@@ -30,3 +30,6 @@ The repository consists of django apps:
 Other:
 1. quiz_creator_front_end_mock uses django forms for generating forms
 2. quiz_participant_front_end_mock users very oldschool js script in django template
+3. quie_creator_front_end_mock contains file fake_data.py. If you're bored with adding data to test manually you can use it:
+`python manage.py shell` and run `from quiz_creator_front_end_mock import fake_data; fake_data.create_fake_data()` and login for users:
+`fake_user` and `fake_quiz_creator` using `abcd` password.

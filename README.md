@@ -19,11 +19,14 @@ Functionalities as Admin:
 - daily report on usage
 
 
-###The repository consists of django apps:
-    - quiz\_creator (rest application for quiz creator and admin role)
-    - quiz\_creator\_front\_end\_mock (mocking views from quiz\_creator with django template)
-    - quiz\_participant (rest application for quiz participant role)
-    - quiz\_participant\_front\_end\_mock (mocking views from quiz\_participant with django template)
+The repository consists of django apps:
+
+    - quiz_creator (rest application for quiz creator and admin role)
+    - quiz_creator_front_end_mock (mocking views from quiz_creator with django template)
+    - quiz_participant (rest application for quiz participant role)
+    - quiz_participant_front_end_mock (mocking views from quiz_participant with django template)
     - user application for user management copied from (https://github.com/sunilale0/django-user-management)
 
-####Other
+Other:
+1. quiz_creator_front_end_mock uses django forms for generating forms
+2. quiz_participant_front_end_mock users very js script in django template

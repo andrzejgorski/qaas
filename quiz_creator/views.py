@@ -1,10 +1,15 @@
+import json
 from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
+import datetime
 from django.shortcuts import redirect
 from django.db.transaction import atomic
+from . import models
 from .models import QuizInvitation, Quiz, QuizParticipation
 from .forms import QuizForm, QuestionForm, ChoiceFormset, EmailForm
 from .smtp_utils import send_invitations, notify_through_email
+from django.http import HttpResponse
 
 
 def create_quiz(request):
@@ -148,3 +153,25 @@ def notify(request, quiz_number, participation_number):
     participation.notified = True
     participation.save()
     return Response(status=status.HTTP_201_CREATED)
+
+
+@api_view(('GET',))
+def report(request):
+    def _count(model):
+        # created_at >= yesterday
+        # __gte == greater then in django orm
+        return model.objects.filter(created_at__gte=yesterday).count()
+
+    yesterday = datetime.datetime.utcnow() - datetime.timedelta(days=1)
+    quizes = _count(models.Quiz)
+    questions = _count(models.Question)
+    participations = _count(models.QuizParticipation)
+    question_scores = _count(models.QuestionScore)
+    report = {
+        'quizes': quizes,
+        'questions': questions,
+        'participations': participations,
+        'question_scores': question_scores,
+    }
+
+    return Response(json.dumps(report), status=status.HTTP_200_OK)

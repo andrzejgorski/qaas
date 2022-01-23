@@ -80,8 +80,12 @@ DATABASES = {
         'NAME': 'quizdb',
         'USER': 'andrzej',
         'PASSWORD': 'abcd',
-    }
+    },
 }
+
+import sys
+if 'test' in sys.argv or 'test_coverage' in sys.argv:
+    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 
 
 # Password validation

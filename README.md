@@ -52,3 +52,4 @@ python manage.py runserver  # for running application. Now you can go to http://
 python manage.py test
 ```
 
+Tested on python 3.9 and django 3.2

@@ -12,6 +12,7 @@ from .smtp_utils import send_invitations, notify_through_email
 from django.http import HttpResponse
 
 
+@api_view(('POST',))
 def create_quiz(request):
     form = QuizForm(request.POST)
     if form.is_valid():
@@ -31,6 +32,7 @@ def save_objects(obj_list):
         obj.save()
 
 
+@api_view(('POST',))
 def add_question(request):
     question_form = QuestionForm(request.POST)
     choice_form = ChoiceFormset(request.POST)
@@ -49,6 +51,7 @@ def add_question(request):
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(('POST',))
 def get_quizzes(request):
     quizzes = Quiz.objects.filter(user=request.user)
     content = {
@@ -57,6 +60,7 @@ def get_quizzes(request):
     return Response(content, status=status.HTTP_201_CREATED)
 
 
+@api_view(('POST',))
 def get_invitations(request, quiz_number):
     quiz = Quiz.get(quiz_number, request.user)
     if quiz is None:
@@ -71,6 +75,7 @@ def get_invitations(request, quiz_number):
     return Response(content, status=status.HTTP_201_CREATED)
 
 
+@api_view(('POST',))
 def invite(request, quiz_number):
     emails_form = EmailForm(request.POST)     
     if emails_form.is_valid():
@@ -133,6 +138,7 @@ Your score is: {score}
     """
 
 
+@api_view(('POST',))
 def notify(request, quiz_number, participation_number):
     # TODO add error handling
     quiz = Quiz.get(quiz_number, request.user)

@@ -5,8 +5,12 @@
 
 function next() { save_results({{next_question_number}}) }
 function previous() { save_results({{prev_question_number}}) }
+function submit() {
+    const url = "{% url 'submit_quiz' quiz_url_id=quiz_url_id %}";
+    save_results(null, url);
+}
 
-function save_results(destination_question_number) {
+function save_results(destination_question_number, url) {
     const inputs = document.getElementsByTagName('input');
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     const checkboxes = Array.prototype.slice.call(inputs).filter(input => input.type !== "hidden");
@@ -21,10 +25,10 @@ function save_results(destination_question_number) {
         next_question_number: destination_question_number,
         csrfmiddlewaretoken: csrftoken,
     };
-    send(data, csrftoken);
+    send(data, csrftoken, url);
 }
 
-function send(data, csrftoken) {
+function send(data, csrftoken, url) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/quiz/{{quiz_url_id}}/question/{{question_number}}", true);
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -32,7 +36,12 @@ function send(data, csrftoken) {
     xhr.onreadystatechange = function() {
         // I know it's very oldschool way
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            window.open(this.responseURL, "_self");
+            if (url !== undefined) {
+                window.open(url, "_self");
+            }
+            else{
+                window.open(this.responseURL, "_self");
+            }
         }
     }
     xhr.send(JSON.stringify(data));
@@ -57,7 +66,7 @@ function send(data, csrftoken) {
 {% if next_question_number %}
 <button onclick="next()"> Next </button>
 {% else %}
-<a href="{% url 'submit_quiz' quiz_url_id=quiz_url_id %}"> Submit </a>
+<button onclick="submit()"> Submit </button>
 {% endif %}
 
 </center>

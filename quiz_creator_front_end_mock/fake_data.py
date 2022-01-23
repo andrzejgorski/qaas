@@ -19,7 +19,7 @@ def create_fake_questions(quiz):
     question_text_tmp = "Fake Quiz Question"
     from quiz_creator import models
 
-    for question_number in range(10):
+    for question_number in range(5):
         question_text = f"{question_text_tmp} {question_number}"
         question = models.Question.objects.create(
             quiz=quiz,
@@ -69,7 +69,7 @@ def create_fake_participation(quiz=None, user=None, started=True, ended=True):
         else:
             raise Exception("There is Fake Quiz. Create it before creating participation")
 
-    fake_user = user or create_fake_user('fake_user', email='fakeuser@email.com')
+    fake_user = user or create_fake_user('fake_user', email='fake_user@email.com')
     participation = models.QuizParticipation.objects.create(
         quiz=quiz,
         user=fake_user,

@@ -29,4 +29,4 @@ The repository consists of django apps:
 
 Other:
 1. quiz_creator_front_end_mock uses django forms for generating forms
-2. quiz_participant_front_end_mock users very js script in django template
+2. quiz_participant_front_end_mock users very oldschool js script in django template
